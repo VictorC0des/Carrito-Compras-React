@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export const Header = ({
@@ -10,7 +10,15 @@ export const Header = ({
     setTotal,
 }) => {
     const [active, setActive] = useState(false);
+    const [clickCount, setClickCount] = useState(0);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (clickCount === 10) {
+            alert('¡Felicidades! Has encontrado el easter egg.');
+            setClickCount(0);
+        }
+    }, [clickCount]);
 
     const onDeleteProduct = product => {
         const results = allProducts.filter(item => item.id !== product.id);
@@ -29,6 +37,10 @@ export const Header = ({
     const IVA = 0.16;
     const totalConIVA = subtotal + (subtotal * IVA);
 
+    const handleIconClick = () => {
+        setClickCount(clickCount + 1);
+    };
+
     return (
         <header>
             <h1>Tienda</h1>
@@ -36,7 +48,10 @@ export const Header = ({
             <div className='container-icon'>
                 <div
                     className='container-cart-icon'
-                    onClick={() => setActive(!active)}
+                    onClick={() => {
+                        setActive(!active);
+                        handleIconClick();
+                    }}
                 >
                     <svg
                         xmlns='http://www.w3.org/2000/svg'
