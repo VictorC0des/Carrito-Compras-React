@@ -1,7 +1,8 @@
+// src/components/ProductList.jsx
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { data } from "../data.js";
 import Swal from 'sweetalert2';
-
 
 export const ProductList = ({
     allProducts,
@@ -65,6 +66,9 @@ export const ProductList = ({
                         <button onClick={() => onAddProduct(product)}>
                             Añadir al carrito
                         </button>
+                        <Link to={`/product/${product.id}`} className='details-link'>
+                            Conoce más de este producto
+                        </Link>
                     </div>
                 </div>
             ))}
